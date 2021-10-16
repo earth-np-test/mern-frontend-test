@@ -12,6 +12,7 @@ import axios from "axios";
 axios.defaults.baseURL = process.env.REACT_API_URL
   ? process.env.REACT_API_URL
   : "https://backend-demo-earth.herokuapp.com";
+
 const PageContainer = styled.div`
   background-color: aliceblue;
   height: 100vh;
@@ -47,7 +48,7 @@ function App() {
 
   const fetchTransactions = async () => {
     const response = await axios.get(
-      "http://localhost:4000/api/transactions",
+      "/api/transactions",
       getTokenHeader(token)
     );
 
@@ -69,7 +70,7 @@ function App() {
 
   const onDeleteItem = async (_id) => {
     const deleted = await axios.delete(
-      "http://localhost:4000/api/transaction/" + _id,
+      "/api/transaction/" + _id,
       getTokenHeader(token)
     );
     console.log(deleted);
@@ -132,13 +133,10 @@ function App() {
             <Button
               onClick={async () => {
                 console.log(username, password);
-                const login = await axios.post(
-                  "http://localhost:4000/user/login",
-                  {
-                    username,
-                    password,
-                  }
-                );
+                const login = await axios.post("/user/login", {
+                  username,
+                  password,
+                });
 
                 setToken(login.data.token);
                 localStorage.setItem("token", login.data.token);
@@ -179,7 +177,7 @@ function App() {
         visible={createModalVisible}
         onCreate={async (tx) => {
           const created = await axios.post(
-            "http://localhost:4000/api/transaction",
+            "/api/transaction",
             tx,
             getTokenHeader(token)
           );
