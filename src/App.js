@@ -9,6 +9,9 @@ import { CreateModal } from "./Components/CreateModal";
 import styled from "@emotion/styled";
 import axios from "axios";
 
+axios.defaults.baseURL = process.env.REACT_API_URL
+  ? process.env.REACT_API_URL
+  : "https://backend-demo-earth.herokuapp.com";
 const PageContainer = styled.div`
   background-color: aliceblue;
   height: 100vh;
